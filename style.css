@@ -36,6 +36,7 @@ html {
 
 body {
   font-family: "Ruhl", sans-serif;
+  animation: opening 1000ms ease-in-out;
 }
 
 h1 {
@@ -109,6 +110,11 @@ nav {
   flex: 1 1 20rem;
 }
 
+/* Hide checkbox and burger in desktop */
+.menu-check {
+  display: none;
+}
+
 .hero {
   min-height: 90vh;
   width: 95%;
@@ -128,7 +134,8 @@ nav {
 }
 
 .hero-intro p {
-  padding: 5rem 10rem;
+  padding: 0 10rem 5rem;
+  color: var(--gray-text);
 }
 
 .hero-intro a {
@@ -151,19 +158,232 @@ nav {
 }
 
 .plant {
+  max-width: 70%;
+  max-width: 70%;
   position: absolute;
   bottom: 0;
   left: -20%;
+  transform: translateY(10%) rotateZ(-10deg) rotateX(-90deg);
   z-index: -1;
-}
-
-.plant1 {
-  max-width: 70%;
-  max-width: 70%;
+  animation: plant-entrance 1000ms ease-in-out 500ms forwards,
+    plant-shake 2500ms infinite ease alternate-reverse 1500ms;
+  transform-origin: bottom;
 }
 
 .plant2 {
   left: 40%;
-  max-width: 70%;
-  max-width: 70%;
+}
+
+/* ANIMATIONS */
+@keyframes opening {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes plant-entrance {
+  from {
+    transform: translateY(10%) rotateZ(-10deg) rotateX(-90deg);
+  }
+  to {
+    transform: translateY(0%) rotateZ(0deg) rotateX(0deg);
+  }
+}
+
+@keyframes plant-shake {
+  from {
+    transform: rotateZ(-5deg);
+  }
+  to {
+    transform: rotateZ(0deg);
+  }
+}
+
+/* ABOUT SECTION */
+
+.about {
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.about-image {
+  position: relative;
+  flex: 1 1 40rem;
+}
+
+.about-image h5 {
+  position: absolute;
+  letter-spacing: 2rem;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-text {
+  flex: 2 1 40rem;
+  justify-content: space-around;
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.about-text div {
+  padding: 3rem 6rem;
+}
+
+.about-text h2 {
+  font-family: "Vibes";
+  padding: 4rem;
+}
+
+.about-text h3 {
+  font-family: "Rhul Medium";
+  padding: 2rem 0;
+}
+
+/* GALLERY SECTION */
+.gallery {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+}
+
+.gallery-head {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  background: rgba(65, 65, 65, 0.9);
+  padding: 5rem 10rem;
+  text-align: center;
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery1 {
+  grid-column: 1 / 3;
+}
+
+.gallery2 {
+  grid-area: 1 / 3 / 3 / 4;
+}
+
+/* MOBILE DESIGN */
+@media screen and (max-width: 842px) {
+  .hero {
+    width: 100%;
+  }
+
+  .hero-intro p {
+    padding: 0 3rem 5rem;
+  }
+
+  /* Hide the nav links and show burger icon */
+  .nav-links {
+    background: var(--primary-color);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 700ms ease;
+  }
+
+  .nav-links a {
+    color: #fff;
+    font-size: var(--header3);
+    text-decoration: underline;
+  }
+
+  .burger {
+    position: relative;
+  }
+
+  .burger span {
+    display: block;
+    padding: 0.2rem 2rem;
+    background: var(--gray-text);
+    margin: 0.5rem 0;
+    transition: all 500ms ease;
+  }
+
+  .menu-check {
+    position: absolute;
+    display: block;
+    top: 50%;
+    right: 3.5%;
+    transform: translate(5%, -50%);
+    width: 6rem;
+    height: 6rem;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 100;
+  }
+
+  .menu-check:checked + .nav-links {
+    transform: translate(-100%);
+  }
+
+  .menu-check:checked ~ .burger span {
+    background: #fff;
+  }
+
+  .menu-check:checked ~ .burger span:first-child {
+    transform: rotateZ(45deg) translateY(300%);
+  }
+
+  .menu-check:checked ~ .burger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-check:checked ~ .burger span:last-child {
+    transform: rotateZ(-45deg) translateY(-300%);
+  }
+
+  .plant {
+    max-width: 60%;
+    max-width: 60%;
+  }
+
+  .plant2 {
+    left: 50%;
+  }
+
+  /* ABOUT SECTION */
+
+  .about-text div {
+    padding: 3rem 3rem;
+  }
+
+  /* GALLERY SECTION */
+
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  }
+
+  .gallery-head {
+    display: none;
+  }
+
+  .gallery img {
+    grid-row: auto;
+    grid-column: auto;
+  }
 }
